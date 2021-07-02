@@ -1,7 +1,8 @@
-package com.example.restapi;
+package com.example.restapi.repositories;
 
 import com.example.restapi.models.User;
 import com.example.restapi.repositories.CustomRepository;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,22 +18,17 @@ public class CustomRepositoryImpl implements CustomRepository {
     MongoTemplate mongoTemplate;
 
     @Override
-    public void addUser(String user_id, String name, String email, String mobile_no){
-        new User(user_id,name,email,mobile_no);
-    }
-
-    @Override
-    public long updateUser(String user_id, String name, String email, String mobile_no) {
-        Query query = new Query(Criteria.where("user_id").is(user_id));
+    public long updateUser(User user) {
+        Query query = new Query(Criteria.where("user_id").is(user.getUser_id()));
         Update update = new Update();
-        update.set("name",name);
-        update.set("email",email);
-        update.set("mobile_no",mobile_no);
+        update.set("name",user.getName());
+        update.set("email",user.getEmail());
+        update.set("mobile_no",user.getMobile_no());
 
         UpdateResult result = mongoTemplate.updateFirst(query,update, User.class);
 
         if(result != null){
-            System.out.println("User updated successfully!");
+            System.out.println("User updated successfully under User ID: "+user.getUser_id());
             return result.getModifiedCount();
         }
         else

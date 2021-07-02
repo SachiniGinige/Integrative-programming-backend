@@ -23,8 +23,8 @@ public class ApiApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		System.out.println("Application Running...");
-//		addSampleUsers();
 
 		printAllUsers();
 	}
@@ -41,6 +41,6 @@ public class ApiApplication implements CommandLineRunner{
 	private void addSampleUsers() {
 		userRepository.save(new User("user1","sampleuser1","sampleuser1@gmail.com","0753397120"));
 		userRepository.save(new User("user2","sampleuser2","sampleuser2@gmail.com","0753397120"));
-		System.out.println("Sample users added");
+		System.out.println("Sample users added!");
 	}
 }
