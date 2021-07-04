@@ -1,9 +1,11 @@
 package com.example.restapi.models;
 
+import com.example.restapi.services.UserService;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
+import java.util.List;
 import java.util.Date;
 
 @Data
@@ -11,13 +13,20 @@ import java.util.Date;
 public class TempSensor {
     @Field
     private String sensor_id;
-    @Field
+    @CreatedDate
     private Date date;
     @Field
-    private String data_value;
+    private double data_value;
 
 
-    public TempSensor(String sensor_id, Date date, String data_value) {
+    UserService userService;
+    List<User> users;
+
+    public TempSensor(){
+//        this.userService = userService;
+    }
+
+    public TempSensor(String sensor_id, Date date, double data_value) {
         this.sensor_id = sensor_id;
         this.date = date;
         this.data_value = data_value;
@@ -39,11 +48,19 @@ public class TempSensor {
         this.date = date;
     }
 
-    public String getData_value() {
+    public double getData_value() {
         return data_value;
     }
 
-    public void setData_value(String data_value) {
+    public void setData_value(double data_value) {
         this.data_value = data_value;
     }
+
+   /* public void notifyUsers(String alert){
+        for (User user : users) {
+            user.notifyUser(alert);
+
+        }
+
+    }*/
 }

@@ -11,8 +11,9 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final CustomRepository customRepository;
+
 
     @Autowired
     public UserService(UserRepository userRepository, CustomRepository customRepository){
@@ -20,7 +21,7 @@ public class UserService {
         this.customRepository = customRepository;
     }
 
-    public List<User> getAllUsers(){
+    public  List<User> getAllUsers(){
         return userRepository.findAll();
     }
 

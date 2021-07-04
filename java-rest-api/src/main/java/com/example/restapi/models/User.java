@@ -1,39 +1,31 @@
 package com.example.restapi.models;
 
-import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.security.GeneralSecurityException;
+import java.util.Properties;
 
-@Data
 @Document(collection = "users")
 public class User {
 
     @Field
-    private String user_id;
+    private
+    String user_id="";
     @Field
-    private String name;
+    private
+    String name="";
     @Field
-    private String email;
+    private
+    String email="";
     @Field
-    private String mobile_no;
-    @CreatedDate
-    private Date createdAt;
-    @LastModifiedDate
-    private Date updatedAt;
-
-    public User(){}
-
-    public User(String user_id, String name, String email, String mobile_no){
-        this.user_id=user_id;
-        this.name=name;
-        this.email=email;
-        this.mobile_no=mobile_no;
-    }
+    private
+    String mobile_no="";
 
     public String getUser_id() {
         return user_id;
@@ -65,6 +57,78 @@ public class User {
 
     public void setMobile_no(String mobile_no) {
         this.mobile_no = mobile_no;
+    }
+
+    public void notifyUser(String alert){
+        sendEmail(alert);
+    }
+
+    public void sendEmail(String msg) {
+        MailSSLSocketFactory sf = null;
+        try {
+            sf = new MailSSLSocketFactory();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        sf.setTrustAllHosts(true);
+
+
+        String recipient = getEmail();
+
+        // email ID of  Sender.
+        String sender = "teamcodersinc@gmail.com";
+        String password = "codersInc001";
+
+        // using host as localhost
+        String host = "smtp.gmail.com";
+        String port = "587";
+
+        // Getting system properties
+        Properties properties = System.getProperties();
+
+        // Setting up mail server
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", port);
+
+        properties.put("mail.imap.ssl.trust", "*");
+        properties.put("mail.imap.ssl.socketFactory", sf);
+        // creating session object to get properties
+        Session session = Session.getDefaultInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(sender, password);
+            }
+        });
+
+        session.getProperties().put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        session.getProperties().put("mail.smtp.starttls.enable", "true");
+
+        try {
+            // MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From Field: adding senders email to from field.
+            message.setFrom(new InternetAddress(sender));
+
+            // Set To Field: adding recipient's email to from field.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+
+            // Set Subject: subject of the email
+            message.setSubject("Temperature Alert");
+
+            // set body of the email.
+            message.setText(msg);
+
+            // Send email.
+            Transport.send(message);
+            System.out.println("Mail sent successfully");
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 }
