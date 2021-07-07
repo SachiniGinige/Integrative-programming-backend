@@ -22,10 +22,10 @@ public class User {
     String name="";
     @Field
     private
-    String email="";
+    String type="";
     @Field
     private
-    String mobile_no="";
+    String contact_info="";
 
     public String getUser_id() {
         return user_id;
@@ -43,20 +43,20 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserType() {
+        return type;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserType(String type) {
+        this.type = type;
     }
 
-    public String getMobile_no() {
-        return mobile_no;
+    public String getContactInfo() {
+        return contact_info;
     }
 
-    public void setMobile_no(String mobile_no) {
-        this.mobile_no = mobile_no;
+    public void setContactInfo(String contact_info) {
+        this.contact_info = contact_info;
     }
 
     public void notifyUser(String alert){
@@ -73,7 +73,7 @@ public class User {
         sf.setTrustAllHosts(true);
 
 
-        String recipient = getEmail();
+        String recipient = getContactInfo();
 
         // email ID of  Sender.
         String sender = "teamcodersinc@gmail.com";
