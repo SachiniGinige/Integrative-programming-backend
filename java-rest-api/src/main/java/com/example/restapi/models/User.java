@@ -1,6 +1,7 @@
 package com.example.restapi.models;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,7 +15,7 @@ import java.util.Properties;
 @Document(collection = "users")
 public class User {
 
-    @Field
+    @Id
     private
     String user_id="";
     @Field
@@ -26,6 +27,10 @@ public class User {
     @Field
     private
     String contact_info="";
+
+    @Field
+    private
+    String password="";
 
     public String getUser_id() {
         return user_id;
@@ -57,6 +62,14 @@ public class User {
 
     public void setContactInfo(String contact_info) {
         this.contact_info = contact_info;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void notifyUser(String alert){}
