@@ -1,6 +1,7 @@
 package com.example.restapi.services;
 
 import com.example.restapi.models.*;
+import com.example.restapi.repositories.AlertRepository;
 import com.example.restapi.repositories.CustomRepository;
 import com.example.restapi.repositories.TempSensorRepository;
 import com.example.restapi.repositories.UserRepository;
@@ -15,11 +16,13 @@ public class TempSensorService {
     private  final TempSensorRepository tempSensorRepository;
 //    private TempSensor newtempSensor;
     private UserService userService;
+    private AlertService alertService;
 
     @Autowired
-    public TempSensorService(TempSensorRepository tempSensorRepository, UserRepository userRepository, CustomRepository customRepository) {
+    public TempSensorService(TempSensorRepository tempSensorRepository, UserRepository userRepository, CustomRepository customRepository,AlertRepository alertRepository ) {
         this.tempSensorRepository = tempSensorRepository;
         this.userService = new UserService(userRepository, customRepository);
+        this.alertService=new AlertService(alertRepository);
 //        this.newtempSensor = new TempSensor();
     }
 
@@ -37,9 +40,12 @@ public class TempSensorService {
     public void addSensor(TempSensor tempSensor){
         tempSensorRepository.insert(tempSensor);
         if(tempSensor.getData_value()>30.0) {
-            String alert="Temperature has exceeded the threshold value!\nSensor ID: "+tempSensor.getSensor_id()
+            String alertmsg="Temperature has exceeded the threshold value!\nSensor ID: "+tempSensor.getSensor_id()
                     +"\nDate/Time: "+tempSensor.getDate()+"\nCurrent Reading: "+tempSensor.getData_value()+"Celsius";
-            notifyusers(alert);
+            Alert alert=new Alert(tempSensor.getSensor_id(),tempSensor.getDate(),alertmsg);
+            alertService.addAlert(alert);
+            notifyusers(alertmsg);
+
         }
         System.out.println("Successfully added current reading of Sensor ID: "+tempSensor.getSensor_id());
     }
