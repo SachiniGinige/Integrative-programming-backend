@@ -18,14 +18,6 @@ public class TempSensor {
     @Field
     private double data_value;
 
-
-    UserService userService;
-    List<User> users;
-
-    public TempSensor(){
-//        this.userService = userService;
-    }
-
     public TempSensor(String sensor_id, Date date, double data_value) {
         this.sensor_id = sensor_id;
         this.date = date;
@@ -55,12 +47,4 @@ public class TempSensor {
     public void setData_value(double data_value) {
         this.data_value = data_value;
     }
-
-   /* public void notifyUsers(String alert){
-        for (User user : users) {
-            user.notifyUser(alert);
-
-        }
-
-    }*/
 }
