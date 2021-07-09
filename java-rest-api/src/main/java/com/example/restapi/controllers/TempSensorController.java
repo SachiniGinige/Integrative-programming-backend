@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tempsensors")
+@RequestMapping("/tempreadings")
 //@CrossOrigin(origins = "http://localhost:3000/")
 @CrossOrigin(origins = "*")
 public class TempSensorController {

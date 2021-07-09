@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Date;
 
 @Data
-@Document(collection = "tempsensors")
+@Document(collection = "tempreadings")
 public class TempSensor {
     @Field
     private String sensor_id;

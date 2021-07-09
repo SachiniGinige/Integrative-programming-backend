@@ -13,14 +13,14 @@ import java.util.List;
 public class TempSensorService {
 
     private  final TempSensorRepository tempSensorRepository;
-    private TempSensor newtempSensor;
+//    private TempSensor newtempSensor;
     private UserService userService;
 
     @Autowired
     public TempSensorService(TempSensorRepository tempSensorRepository, UserRepository userRepository, CustomRepository customRepository) {
         this.tempSensorRepository = tempSensorRepository;
         this.userService = new UserService(userRepository, customRepository);
-        this.newtempSensor = new TempSensor();
+//        this.newtempSensor = new TempSensor();
     }
 
     public List<TempSensor> getAllSensors(){
