@@ -25,7 +25,9 @@ public class EmailUser extends User {
         sf.setTrustAllHosts(true);
 
 
+        System.out.println(getContactInfo() + "***");
         String recipient = getContactInfo();
+
 
         // email ID of  Sender.
         String sender = "teamcodersinc@gmail.com";

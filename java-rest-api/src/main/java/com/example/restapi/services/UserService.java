@@ -43,8 +43,7 @@ public class UserService {
                         String.format("Cannot find user by User ID: %s", user.getUser_id())
                 ));
         savedUser.setName(user.getName());
-        savedUser.setEmail(user.getEmail());
-        savedUser.setMobile_no(user.getMobile_no());
+        savedUser.setContactInfo(user.getContactInfo());
 
         customRepository.updateUser(user);
     }

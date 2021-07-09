@@ -1,8 +1,6 @@
 package com.example.restapi.repositories;
 
 import com.example.restapi.models.User;
-import com.example.restapi.repositories.CustomRepository;
-import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,8 +20,7 @@ public class CustomRepositoryImpl implements CustomRepository {
         Query query = new Query(Criteria.where("user_id").is(user.getUser_id()));
         Update update = new Update();
         update.set("name",user.getName());
-        update.set("email",user.getEmail());
-        update.set("mobile_no",user.getMobile_no());
+        update.set("contactInfo",user.getContactInfo());
 
         UpdateResult result = mongoTemplate.updateFirst(query,update, User.class);
 

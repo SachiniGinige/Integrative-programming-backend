@@ -1,7 +1,6 @@
 package com.example.restapi.services;
 
-import com.example.restapi.models.TempSensor;
-import com.example.restapi.models.User;
+import com.example.restapi.models.*;
 import com.example.restapi.repositories.CustomRepository;
 import com.example.restapi.repositories.TempSensorRepository;
 import com.example.restapi.repositories.UserRepository;
@@ -49,12 +48,21 @@ public class TempSensorService {
             public void notifyusers(String alert){
                 List<User> users = userService.getAllUsers();
                 for (User user : users) {
-                    if(!user.getEmail().isEmpty()){
-
-                       // EmailUser ru = (EmailUser) user;
-                        user.notifyUser(alert);
+                    if(!user.getContactInfo().isEmpty()){
+                        if(user.getUserType().equals("Email")){
+                            EmailUser emailUser = new EmailUser();
+                            emailUser.setContactInfo(user.getContactInfo());
+                            emailUser.notifyUser(alert);
+                        }else if(user.getUserType().equals("SMS")) {
+                            SMSUser smsUser = new SMSUser();
+                            smsUser.setContactInfo(user.getContactInfo());
+                            smsUser.notifyUser(alert);
+                        }else{
+                            CallUser callUser = new CallUser();
+                            callUser.setContactInfo(user.getContactInfo());
+                            callUser.notifyUser(alert);
+                        }
                     }
-
 
                 }
             }
