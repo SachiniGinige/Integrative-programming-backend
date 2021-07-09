@@ -37,7 +37,8 @@ public class TempSensorService {
     public void addSensor(TempSensor tempSensor){
         tempSensorRepository.insert(tempSensor);
         if(tempSensor.getData_value()>30.0) {
-            String alert="temperature  has exceeded the threshold value ";
+            String alert="Temperature has exceeded the threshold value!\nSensor ID: "+tempSensor.getSensor_id()
+                    +"\nDate/Time: "+tempSensor.getDate()+"\nCurrent Reading: "+tempSensor.getData_value()+"Celsius";
             notifyusers(alert);
         }
         System.out.println("Successfully added current reading of Sensor ID: "+tempSensor.getSensor_id());
