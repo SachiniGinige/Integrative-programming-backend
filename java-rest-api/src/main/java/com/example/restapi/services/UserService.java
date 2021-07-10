@@ -33,6 +33,7 @@ public class UserService {
     }
 
     public void addUser(User user){
+        user.setUser_id(String.valueOf(System.currentTimeMillis()));
         userRepository.insert(user);
         System.out.println("Successfully added User under User ID: "+user.getUser_id());
     }

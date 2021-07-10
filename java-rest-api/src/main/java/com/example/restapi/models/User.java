@@ -2,6 +2,7 @@ package com.example.restapi.models;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,7 +16,7 @@ import java.util.Properties;
 @Document(collection = "users")
 public class User {
 
-    @Id
+    @Field
     private
     String user_id="";
     @Field
