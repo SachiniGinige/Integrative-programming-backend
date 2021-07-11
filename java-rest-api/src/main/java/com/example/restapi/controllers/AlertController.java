@@ -12,7 +12,6 @@ import java.util.List;
 @RequestMapping("/alerts")
 //@CrossOrigin(origins = "http://localhost:3000/")
 @CrossOrigin(origins = "*")
-
 public class AlertController {
 
 

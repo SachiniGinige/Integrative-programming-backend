@@ -42,7 +42,7 @@ public class TempSensorService {
         if(tempSensor.getData_value()>30.0) {
             String alertmsg="Temperature has exceeded the threshold value!\nSensor ID: "+tempSensor.getSensor_id()
                     +"\nDate/Time: "+tempSensor.getDate()+"\nCurrent Reading: "+tempSensor.getData_value()+"Celsius";
-            Alert alert=new Alert(tempSensor.getSensor_id(),tempSensor.getDate(),alertmsg);
+            Alert alert=new Alert(tempSensor.getSensor_id(),tempSensor.getData_value(),tempSensor.getDate(),alertmsg);
             alertService.addAlert(alert);
             notifyusers(alertmsg);
 
